@@ -2,7 +2,7 @@
 header("Referer: https://api.bilibili.com");
 require_once ('jinkela.php');
 
-$service = isset($_GET['svc']) ? $_GET['service']: 'video'; //video, t, user
+$service = isset($_GET['svc']) ? $_GET['svc']: 'video'; //video, t, user
 $resource = isset($_GET['res']) ? $_GET['res']: '7248433';
 
 if($service === 'video') {
