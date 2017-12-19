@@ -5,12 +5,12 @@ function parseVideoArchive($resid) {
   $biliRawDocument = file_get_contents($requestURL);
   $ObjectBiliRawDocument = json_decode($biliRawDocument);
 
-  $resHTMLObject = 'https://www.bilibili.com/video/av' .$resuid. '/';
-  $resCoverObject = $ObjectBiliRawDocument -> data -> $resuid -> pic;
-  $resTitleObject = $ObjectBiliRawDocument -> data -> $resuid -> title;
+  $resHTMLObject = 'https://www.bilibili.com/video/av' .$resid. '/';
+  $resCoverObject = $ObjectBiliRawDocument -> data -> $resid -> pic;
+  $resTitleObject = $ObjectBiliRawDocument -> data -> $resid -> title;
   $resViewsObject = $ObjectBiliRawDocument -> stat -> view;
   $resDanmuObject = $ObjectBiliRawDocument -> stat -> danmaku;
-  $resCategoryObject = $ObjectBiliRawDocument -> data -> $resuid -> tname;
+  $resCategoryObject = $ObjectBiliRawDocument -> data -> $resid -> tname;
 
   return array($resHTMLObject,
                 $resCoverObject,
