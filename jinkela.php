@@ -9,15 +9,21 @@ function parseVideoArchive($resid) {
   $resCoverObject = $ObjectBiliRawDocument -> data -> $resid -> pic;
   $resTitleObject = $ObjectBiliRawDocument -> data -> $resid -> title;
   $resViewsObject = $ObjectBiliRawDocument -> stat -> view;
+  $resCommentObject = $ObjectBiliRawDocument -> stat -> reply;
+  $resCoinObject = $ObjectBiliRawDocument -> stat -> coin;
   $resDanmuObject = $ObjectBiliRawDocument -> stat -> danmaku;
   $resCategoryObject = $ObjectBiliRawDocument -> data -> $resid -> tname;
+  $resArticleDescObject = $ObjectBiliRawDocument -> data -> $resid -> desc;
 
   return array($resHTMLObject,
                 $resCoverObject,
                 $resTitleObject,
                 $resViewsObject,
+                $resCommentObject,
+                $resCoinObject,
                 $resDanmuObject,
-                $resCategoryObject);
+                $resCategoryObject,
+                $resArticleDescObject);
 }
 
 /***
