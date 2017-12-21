@@ -8,10 +8,10 @@ function parseVideoArchive($resid) {
   $resHTMLObject = 'https://www.bilibili.com/video/av' .$resid. '/';
   $resCoverObject = $ObjectBiliRawDocument -> data -> $resid -> pic;
   $resTitleObject = $ObjectBiliRawDocument -> data -> $resid -> title;
-  $resViewsObject = $ObjectBiliRawDocument -> stat -> view;
-  $resCommentObject = $ObjectBiliRawDocument -> stat -> reply;
-  $resCoinObject = $ObjectBiliRawDocument -> stat -> coin;
-  $resDanmuObject = $ObjectBiliRawDocument -> stat -> danmaku;
+  $resViewsObject = $ObjectBiliRawDocument -> data -> $resid -> stat -> view;
+  $resCommentObject = $ObjectBiliRawDocument -> data -> $resid -> stat -> reply;
+  $resCoinObject = $ObjectBiliRawDocument -> data -> $resid -> stat -> coin;
+  $resDanmuObject = $ObjectBiliRawDocument -> data -> $resid -> stat -> danmaku;
   $resCategoryObject = $ObjectBiliRawDocument -> data -> $resid -> tname;
   $resArticleDescObject = $ObjectBiliRawDocument -> data -> $resid -> desc;
 
@@ -76,12 +76,18 @@ function parseBilibiliTweet($resid) {
   $resForwardObject = $ObjectBiliRawDocument -> data -> card -> desc -> repost;
   $resLikeObject = $ObjectBiliRawDocument -> data -> card -> desc -> like;
   $resCommentRawDocument = file_get_contents('https://api.bilibili.com/x/v2/reply?jsonp=jsonp&oid=' .$resid. '&type=17');
-  $resCommentObject = $resCommentRawDocument -> data -> page -> count;
+  $processResCommentRawDocument = json_decode($resCommentRawDocument);
+  if(!empty($processResCommentRawDocument -> data)) {
+    $resCommentObject = $processResCommentRawDocument -> data -> page -> count;
+  }
+  else{
+    $resCommentObject = 0;
+  }
   //处理动态内容，要去掉转义字符以及引号
   $resTweetObject = $ObjectBiliRawDocument -> data -> card -> card;
   /***Processing REGEX operation of $resTweetObject***/
   $patterns_tweet = array();
-    $patterns_tweet[0] = '/\\/';
+    $patterns_tweet[0] = '/\\\/';
     $patterns_tweet[1] = '/^"/';
     $patterns_tweet[2] = '/"$/';
   $replacements_tweet = array();
@@ -91,37 +97,40 @@ function parseBilibiliTweet($resid) {
   ksort($patterns_tweet);
   ksort($replacements_tweet);
   $resTweetProcess = preg_replace($patterns_tweet, $replacements_tweet, $resTweetObject); //real json format
+  $ObjectResTweet = json_decode($resTweetProcess);
+  var_dump($ObjectResTweet);
   //输出的时候如果有视频卡片、专栏文章卡片、短视频卡片或者图片的话要显示。
   //下面是一些判断用的变量
-  $resTweetVideoJudgement = $resTweetProcess -> aid;
-  $resTweetColumnJudgement = $resTweetProcess -> words;
-  $resTweetShortVideoJudgement = $resTweetProcess -> item -> video_playurl;
-  $resTweetPhotoJudgement = $resTweetProcess -> pictures_count;
 
-  if(!empty($resTweetVideoJudgement)) {
-    $resTweetBodyObject = $resTweetProcess -> dynamic;
-    $resTweetBodyAssetDesc = $resTweetProcess -> desc;
-    $resTweetBodyAsset = $resTweetProcess -> pic;
+  if(!empty($ObjectResTweet -> aid)) { //是视频
+    $resTweetBodyObject = $ObjectResTweet -> dynamic; //大卡片内容
+    $resTweetBodyAsset = $ObjectResTweet -> pic; //大卡片头图
+    $resTweetBodyAssetTitle = $ObjectResTweet -> title; //小卡片标题
+    $resTweetBodyAssetDesc = $ObjectResTweet -> desc; //小卡片内容
   }
-  else if (!empty($resTweetColumnJudgement)) {
-    $resTweetBodyObject = $resTweetProcess -> title;
-    $resTweetBodyAsset = $resTweetProcess -> banner_url;
-    $resTweetBodyAssetDesc = $resTweetProcess -> summary;
+  else if (!empty($ObjectResTweet -> words)) { //是专栏文章
+    $resTweetBodyObject = '';
+    $resTweetBodyAsset = $ObjectResTweet -> banner_url;
+    $resTweetBodyAssetTitle = $ObjectResTweet -> title;
+    $resTweetBodyAssetDesc = $ObjectResTweet -> summary;
   }
-  else if (!empty($resTweetPhotoJudgement)) {
-    $resTweetBodyObject = $resTweetProcess -> item -> description;
-    $resTweetBodyAsset = $resTweetProcess -> item -> pictures[0] -> img_src;
+  else if (!empty($ObjectResTweet -> item -> pictures_count)) { //是图片
+    $resTweetBodyObject = $ObjectResTweet -> item -> description;
+    $resTweetBodyAsset = $ObjectResTweet -> item -> pictures[0] -> img_src;
+    $resTweetBodyAssetTitle = '';
     $resTweetBodyAssetDesc = '';
   }
-  else if (!empty($resTweetShortVideoJudgement)) {
-    $resTweetBodyObject = $resTweetProcess -> item -> description;
-    $resTweetBodyAsset = $resTweetProcess -> cover -> default;
+  else if (!empty($ObjectResTweet -> item -> cover -> video_size)) { //是短视频
+    $resTweetBodyObject = $ObjectResTweet -> item -> cover -> description;
+    $resTweetBodyAsset = $ObjectResTweet -> item -> cover -> default;
+    $resTweetBodyAssetTitle = '';
     $resTweetBodyAssetDesc = '';
   }
   else {
-    $resTweetBodyObject = '获取动态详情失败。'；
+    $resTweetBodyObject = '获取动态详情失败。';
     $resTweetBodyAsset = '';
-    $resTweetBodyAssetDesc = '暂时无法获取动态信息。来源可能无法解析。'
+    $resTweetBodyAssetTitle = '';
+    $resTweetBodyAssetDesc = '目前，我们尚不支持插入转发的内容。';
   }
   return array($resHTMLObject,
                 $resNameObject,
@@ -132,7 +141,8 @@ function parseBilibiliTweet($resid) {
                 $resCommentObject,
                 $resTweetBodyObject,
                 $resTweetBodyAsset,
-                $resTweetBodyAssetDesc);
+                $resTweetBodyAssetDesc,
+                $resTweetBodyAssetTitle);
 }
 
 function parseBilibiliUser($resid) {
@@ -140,8 +150,8 @@ function parseBilibiliUser($resid) {
   $biliRawDocument = file_get_contents($requestURL);
   $ObjectBiliRawDocument = json_decode($biliRawDocument);
 
-  $resHTMLObject = 'https://space.bilibili.com/' .$resid.;
-  $resUnameObject = $ObjectBiliRawDocument -> card -> name;
+  $resHTMLObject = 'https://space.bilibili.com/' .$resid;
+  $resUnameObject = $ObjectBiliRawDocument -> data -> card -> name;
   $resBGCoverObject = $ObjectBiliRawDocument -> data -> space -> s_img;
   /***Processing REGEX of $resBGCoverObject***/
   $patterns_bgcover = array();
@@ -160,11 +170,11 @@ function parseBilibiliUser($resid) {
     $replacements_avatar[0] = 'https:';
   ksort($patterns_avatar);
   ksort($replacements_avatar);
-  $resAvatarObjectSecure = preg_replace($patterns_avatar, $replacements_avatar, $resBGCoverObject); //同上
+  $resAvatarObjectSecure = preg_replace($patterns_avatar, $replacements_avatar, $resAvatarObject); //同上
   /***处理完毕***/
   $resAttentionObject = $ObjectBiliRawDocument -> data -> card -> friend;
   $resFansObject = $ObjectBiliRawDocument -> data -> card -> fans;
-  $resSignatureObject = $ObjectBiliRawDocument -> data -> card -> description;
+  $resSignatureObject = $ObjectBiliRawDocument -> data -> card -> sign;
 
   return array($resHTMLObject,
                 $resUnameObject,
