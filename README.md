@@ -6,14 +6,22 @@ What is Embedding? [繁體中文](http://www.wibibi.com/info.php?tid=443) | [Eng
 
 **Attention** This project is under development
 
-## 0.9 Public Beta
-
-In this version we have fixed a bunch of bugs, finally making the software usable.
-
 This project implements the following open source software:
 
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
+
+## 0.9a Public Beta
+
+changes:
+
+- Added bilibili badges including vip state and identity verification.
+- fixing a bug causing metadata not showing up at the bottom of the embed.
+- fixing a bug causing tweets including short videos not recognised.
+
+## 0.9 Public Beta
+
+In this version we have fixed a bunch of bugs, finally making the software usable.
 
 By far you may embed the following resources from Bilibili:
 
