@@ -133,7 +133,7 @@ function parseBilibiliTweet($resid) {
     $resTweetBodyObject = '获取动态详情失败。';
     $resTweetBodyAsset = '';
     $resTweetBodyAssetTitle = '';
-    $resTweetBodyAssetDesc = '获取动态详情失败，请稍后重试。';
+    $resTweetBodyAssetDesc = '如果这是一条转发，请尝试去原作者那里嵌入。您仍可点击本卡片查看转发的内容。';
     $overlayBadgeContent = '';
   }
   return array($resHTMLObject,
