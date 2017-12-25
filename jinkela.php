@@ -106,30 +106,35 @@ function parseBilibiliTweet($resid) {
     $resTweetBodyAsset = $ObjectResTweet -> pic; //大卡片头图
     $resTweetBodyAssetTitle = $ObjectResTweet -> title; //小卡片标题
     $resTweetBodyAssetDesc = $ObjectResTweet -> desc; //小卡片内容
+    $overlayBadgeContent = '投稿视频';
   }
   else if (!empty($ObjectResTweet -> words)) { //是专栏文章
     $resTweetBodyObject = '';
     $resTweetBodyAsset = $ObjectResTweet -> banner_url;
     $resTweetBodyAssetTitle = $ObjectResTweet -> title;
     $resTweetBodyAssetDesc = $ObjectResTweet -> summary;
+    $overlayBadgeContent = '专栏文章';
   }
   else if (!empty($ObjectResTweet -> item -> pictures_count)) { //是图片
     $resTweetBodyObject = $ObjectResTweet -> item -> description;
     $resTweetBodyAsset = $ObjectResTweet -> item -> pictures[0] -> img_src;
     $resTweetBodyAssetTitle = '';
     $resTweetBodyAssetDesc = '';
+    $overlayBadgeContent = '';
   }
-  else if (!empty($ObjectResTweet -> item -> cover -> video_size)) { //是短视频
-    $resTweetBodyObject = $ObjectResTweet -> item -> cover -> description;
+  else if (!empty($ObjectResTweet -> item -> video_size)) { //是短视频
+    $resTweetBodyObject = $ObjectResTweet -> item -> description;
     $resTweetBodyAsset = $ObjectResTweet -> item -> cover -> default;
     $resTweetBodyAssetTitle = '';
     $resTweetBodyAssetDesc = '';
+    $overlayBadgeContent = '';
   }
   else {
     $resTweetBodyObject = '获取动态详情失败。';
     $resTweetBodyAsset = '';
     $resTweetBodyAssetTitle = '';
-    $resTweetBodyAssetDesc = '目前，我们尚不支持插入转发的内容。';
+    $resTweetBodyAssetDesc = '获取动态详情失败，请稍后重试。';
+    $overlayBadgeContent = '';
   }
   return array($resHTMLObject,
                 $resNameObject,
@@ -141,7 +146,8 @@ function parseBilibiliTweet($resid) {
                 $resTweetBodyObject,
                 $resTweetBodyAsset,
                 $resTweetBodyAssetDesc,
-                $resTweetBodyAssetTitle);
+                $resTweetBodyAssetTitle,
+                $overlayBadgeContent);
 }
 
 function parseBilibiliUser($resid) {
@@ -174,6 +180,9 @@ function parseBilibiliUser($resid) {
   $resAttentionObject = $ObjectBiliRawDocument -> data -> card -> friend;
   $resFansObject = $ObjectBiliRawDocument -> data -> card -> fans;
   $resSignatureObject = $ObjectBiliRawDocument -> data -> card -> sign;
+  $resUserLevelObject = $ObjectBiliRawDocument -> data -> card -> level_info -> current_level;
+  $resUserVerified = $ObjectBiliRawDocument -> data -> card -> official_verify -> type;
+  $resUserVIPState = $ObjectBiliRawDocument -> data -> card -> vip -> vipType;
 
   return array($resHTMLObject,
                 $resUnameObject,
@@ -181,7 +190,10 @@ function parseBilibiliUser($resid) {
                 $resAvatarObjectSecure,
                 $resAttentionObject,
                 $resFansObject,
-                $resSignatureObject);
+                $resSignatureObject,
+                $resUserLevelObject,
+                $resUserVerified,
+                $resUserVIPState);
 }
 
 function faultTolerance() {

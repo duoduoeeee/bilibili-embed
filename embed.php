@@ -72,11 +72,17 @@ else if($service === 't') {
   $out_bodyAsset = $vars[8];
   $out_bodyAssetDesc = $vars[9];
   $out_bodyAssetTitle = $vars[10];
+  $out_badgeContent = $vars[11];
 
   echo '
 <div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">';
   if(!empty($out_bodyAsset)) {
     echo '<img class="card-img-top" src="' .$out_bodyAsset. '">';
+    if(!empty($out_badgeContent)) {
+      echo '<div class="card-img-overlay">
+            <span style="background-color:#fb7299; color:#fff;" class="badge badge-primary">' .$out_badgeContent. '</span>
+            </div>';
+    }
   }
   echo '<div class="card-body">
           <div class="media">
@@ -123,6 +129,9 @@ else if($service === 'user') {
   $out_attention = $vars[4];
   $out_fans = $vars[5];
   $out_signature = $vars[6];
+  $out_lv = $vars[7];
+  $out_verified = $vars[8];
+  $out_vipstate= $vars[9];
 
   echo '
   <div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
@@ -131,8 +140,47 @@ else if($service === 'user') {
       <div class="media">
         <img class="mr-3 rounded-circle" style="width:64px; height:64px;" src=' .$out_avatar. '>
         <div class="media-body">
-        <strong class="mt-0">' .$out_name. '</strong>
-        <p>'.$out_signature. '</p>
+        <strong class="mt-0">' .$out_name;
+          if($out_verified == 0) { //个人认证
+            echo '<span style="padding-left: 0.5rem;"><img src="verified-personal.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_verified == 1) { //机构认证
+            echo '<span style="padding-left:0.5rem;"><img src="verified-organization.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+
+          if($out_lv == 1) { //一级
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_1.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_lv == 2) {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_2.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_lv == 3) {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_3.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_lv == 4) {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_4.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_lv == 5) {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_5.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else if($out_lv == 6) {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_6.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+          else {
+            echo '<span style="padding-left:0.5rem;"><img src="ic_user_level_0.svg" style="max-width:20px; height:auto;"></img></span>';
+          }
+
+          if($out_vipstate == 2) { //年度大会员
+            echo '<span style="padding-left:0.5rem;"><img src="vip.svg" style="max-width:20px; height:auto;"></img></span><span style="padding-left:0.5rem;"><img src="annual-v2.svg" style="max-width:20px; height:auto;"></img></span>
+                  ';
+          }
+          else if($out_vipstate == 1) { //大会员
+            echo '<span style="padding-left:0.5rem; "><img src="vip.svg" style="max-width:20px; height:auto;"></img></span>
+                 ';
+          }
+        echo '
+        </strong>
+          <p>'.$out_signature. '</p>
           <div style="color:gray">
           <span><img src="follow.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_attention. '</span>
           <span><img src="follower.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_fans. '</span>
