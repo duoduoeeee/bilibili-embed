@@ -13,9 +13,18 @@ echo '
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 <meta name="referrer" content="no-referrer" />
-<script type="application/javascript" src="iframeResizer.contentWindow.min.js"></script>
+<meta content="noindex" name="robots" />
+<script type="application/javascript" src="//localhost/iframeResizer.contentWindow.min.js"></script>
+
+<style>
+  body.embed {
+    background: transparent;
+    margin: 0;
+    padding-bottom:0;
+  }
+</style>
 </head>
-<body class="embed">
+<body class=embed>
 ';
 ?>
 
@@ -33,7 +42,7 @@ if($service === 'video') {
   $out_desc = $vars[8];
 
   echo '
-<div class="card" style="width:30rem; max-width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
+<div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
   <img class="card-img-top" src="' .$out_media. '">
   <div class="card-body">
     <strong class="card-title">' .$out_title. '</strong>
@@ -89,18 +98,19 @@ else if($service === 't') {
                     .'<p class="card-text">'
                     .$out_bodyAssetDesc
                     .'</p>
-                  </div>
+                  </div>';
+                }
+               echo '
                   <div style="color:gray">
                     <span><img src="like.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_like. '</span>
                     <span><img src="comment.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_reply. '</span>
                     <span><img src="fwd.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_fwd. '</span>
                     <span class="float-right"><img src="bilibili.svg" style="width:20px; height:auto;"></span>
-                  </div>';
-              }
-          echo '</div>
+                  </div>
                 </div>
-                </div>
-                </div>
+              </div>
+            </div>
+          </div>
 ';
 }
 

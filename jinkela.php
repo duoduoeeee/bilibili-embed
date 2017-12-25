@@ -98,7 +98,6 @@ function parseBilibiliTweet($resid) {
   ksort($replacements_tweet);
   $resTweetProcess = preg_replace($patterns_tweet, $replacements_tweet, $resTweetObject); //real json format
   $ObjectResTweet = json_decode($resTweetProcess);
-  var_dump($ObjectResTweet);
   //输出的时候如果有视频卡片、专栏文章卡片、短视频卡片或者图片的话要显示。
   //下面是一些判断用的变量
 
