@@ -2,7 +2,7 @@
 header("Referer: https://api.bilibili.com");
 require_once ('jinkela.php');
 
-$service = isset($_GET['svc']) ? $_GET['svc']: 'video'; //video, t, user
+$service = isset($_GET['svc']) ? $_GET['svc']: 'video'; //video, t, user, bg
 $resource = isset($_GET['res']) ? $_GET['res']: '7248433';
 
 //基本操作
@@ -57,6 +57,33 @@ if($service === 'video') {
   </div>
 </div>
 ';
+}
+
+else if($service === 'bg') {
+  $vars = parseBangumiStat($resource);
+  $out_href = $vars[0];
+  $out_media = $vars[1];
+  $out_name = $vars[2];
+  $out_ratecount = $vars[3];
+  $out_rate = $vars[4];
+  $out_follow = $vars[5];
+  $out_play = $vars[6];
+
+  echo '
+  <div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
+    <img class="card-img-top" src="' .$out_media. '">
+    <div class="card-body">
+      <strong class="card-title">' .$out_name. '</strong>
+      <div style="color:gray">
+        <span><img src="user.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_ratecount. '</span>
+        <span><img src="star.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_rate. '</span>
+        <span><img src="heart.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_follow. '</span>
+        <span><img src="play.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_play. '</span>
+        <span class="float-right"><img src="bilibili.svg" style="width:20px; height:auto;"></span>
+      </div>
+    </div>
+  </div>
+  ';
 }
 
 else if($service === 't') {

@@ -26,6 +26,39 @@ function parseVideoArchive($resid) {
                 $resArticleDescObject);
 }
 
+function parseBangumiStat($resid) {
+  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" .$ObjectBangumiRawDocument -> data -> season_id. "&cross_domain=true";
+  $bangumiRawDocument = file_get_contents($requestURL);
+  $ObjectBangumiRawDocument = json_decode($bangumiRawDocument);
+
+  $resHTMLObject = "https://bangumi.bilibili.com/" .$resid;
+  $resCoverObject = $ObjectBangumiRawDocument -> data -> cover;
+
+  /***process REGEX***/
+  $patterns_bg = array();
+    $patterns_bg[0] = "/^http:/";
+  $replacements_bg = array();
+    $replacements_bg[0] = "https:";
+  ksort($patterns_bg);
+  ksort($replacements_bg);
+
+  $resCoverObjectSecure = preg_replace($patterns_bg, $replacements_bg, $resCoverObject);
+  $resBangumiTitle = $ObjectBangumiRawDocument -> data -> title;
+  $resBangumiRateCount = $ObjectBangumiRawDocument -> data -> rating -> count;
+  $resBangumiRateScore = $ObjectBangumiRawDocument -> data -> rating -> score;
+  $resBangumiFollowCount = $ObjectBangumiRawDocument -> data -> follow_count;
+  $resbangumiPlayCount = $ObjectBangumiRawDocument -> data -> play_count;
+
+  return array(
+    $requestURL,
+    $resCoverObjectSecure,
+    $resBangumiTitle,
+    $resBangumiRateCount,
+    $resBangumiRateScore,
+    $resBangumiFollowCount,
+    $resbangumiPlayCount);
+}
+
 /***
 转换时间的代码来自这里
 http://blog.sina.com.cn/s/blog_5fd841bf0100u3gn.html

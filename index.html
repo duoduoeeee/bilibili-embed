@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bilibili Publish Center</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    </head>
+    <body>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="jumbotron">
+              <h1 class="display-3">What would you like to embed?</h1>
+              <p class="lead">Bilibili Embed allows you to convert information on Bilibili.com to easily embeddable cards so that you may implement them in your own webpage.</p>
+            </div>
+          <div class="col">
+            <form name="form" action="">
+              <div class="form-group">
+                <input class="form-control" type="text" name="edit" id="edit" placeholder="Videos, Users, Feed IDs, etc." oninput="myFunction()">
+              </div>
+            </form>
+          </div>
+          <div class="col">
+            <p>Then copy the following code and paste it in your webpage:</p>
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" id="out" type="text" rows="3" readonly></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+        <script src="generate.js"></script>
+        <script>
+        function myFunction() {
+          var x = document.getElementById("edit").value;
+          var embedCode = processInput(x);
+          document.getElementById("out").value = embedCode;
+        }
+      </script>
+        </script>
+    </body>
+</html>
