@@ -2,10 +2,17 @@ function processInput(inputtext){
 
 //some lovable regex
 var patternVideo = new RegExp(".+/av[0-9]{5,}"); //是视频
+<<<<<<< HEAD
 var patternVideoShort = new RegExp(".*acg\.tv\/[0-9]{5,}") //是短链接式视频（形如“acg.tv/xxxxx”）
 var patternT = new RegExp(".*t\.bilibili\.com\/[0-9]{10,}"); //是动态
 var patternUser = new RegExp(".*space\.bilibili\.com\/[0-9]{5,}"); //是用户
 var patternBangumiFalse = new RegExp(".*bangumi\.bilibili\.com\/anime\/[0-9]+"); //无法解释的番剧地址
+=======
+var patternVideoShort = new RegExp(".+acg\.tv\/[0-9]{5,}") //是短链接式视频（形如“acg.tv/xxxxx”）
+var patternT = new RegExp(".*t\.bilibili\.com\/[0-9]{10,}"); //是动态
+var patternUser = new RegExp(".+space\.bilibili\.com\/[0-9]{5,}"); //是用户
+var patternBangumiFalse = new RegExp(".+bangumi\.bilibili\.com\/anime\/[0-9]+"); //无法解释的番剧地址
+>>>>>>> b16f37b9eff95966d3b465fad99e434e727fa610
 var patternBangumi = new RegExp(".*www\.bilibili\.com\/bangumi\/play\/ep[0-9]+"); //正常的番剧地址
 
 var isvideo = patternVideo.test(inputtext);
