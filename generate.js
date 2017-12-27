@@ -2,12 +2,10 @@ function processInput(inputtext){
 
 //some lovable regex
 var patternVideo = new RegExp(".+/av[0-9]{5,}"); //是视频
-<<<<<<< HEAD
-var patternVideoShort = new RegExp(".*acg\.tv\/[0-9]{5,}") //是短链接式视频（形如“acg.tv/xxxxx”）
+var patternVideoShort = new RegExp(".*acg\.tv\/[0-9]{5,}"); //是短链接式视频（形如“acg.tv/xxxxx”）
 var patternT = new RegExp(".*t\.bilibili\.com\/[0-9]{10,}"); //是动态
 var patternUser = new RegExp(".*space\.bilibili\.com\/[0-9]{5,}"); //是用户
 var patternBangumiFalse = new RegExp(".*bangumi\.bilibili\.com\/anime\/[0-9]+"); //无法解释的番剧地址
-=======
 var patternVideoShort = new RegExp(".+acg\.tv\/[0-9]{5,}") //是短链接式视频（形如“acg.tv/xxxxx”）
 var patternT = new RegExp(".*t\.bilibili\.com\/[0-9]{10,}"); //是动态
 var patternUser = new RegExp(".+space\.bilibili\.com\/[0-9]{5,}"); //是用户
