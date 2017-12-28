@@ -9,6 +9,8 @@ This project implements the following open source software:
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
 
+**Note** This project is not yet compatible with IE and Microsoft Edge
+
 ## 1.1f "linsis"
 
 changes:
