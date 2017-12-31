@@ -11,6 +11,8 @@ This project implements the following open source software:
 
 **Note** This project is not yet compatible with IE and Microsoft Edge
 
+Use my service: <https://badges.duoee.cn>
+
 ## 1.1f "linsis"
 
 changes:
