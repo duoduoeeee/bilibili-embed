@@ -1,24 +1,15 @@
 # bilibili-embed
 
-embed bilibili video info, user info, bangumi info or user timeline feed on your own webpage
+embed bilibili video info, user info or user timeline feed on your own webpage
 
 What is Embedding? [繁體中文](http://www.wibibi.com/info.php?tid=443) | [English](https://dev.twitter.com/web/embedded-tweets)
+
+**Attention** This project is under development
 
 This project implements the following open source software:
 
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
-
-**Note** This project is not yet compatible with IE and Microsoft Edge
-
-Use my service: <https://badges.duoee.cn>
-
-## 1.1f "linsis"
-
-changes:
-
-- Now you may embed bangumi information with my service.
-- Fixed a bug which causes iframes not automatically updating height of themselves
 
 ## 0.9a Public Beta
 
@@ -42,22 +33,28 @@ By far you may embed the following resources from Bilibili:
 
 To install, you have to put everything inside this project in your webroot. you will need an Apache or Nginx powered web server.
 
-**Important** Before you begin, you ought to modify these lines:
+To embed cards to foreign pages, simply put the following html stuff:
 
-- `generate.js:62` modify the iframe src as well as the script src so that it suits your own instance
+```HTML
+<iframe src="//localhost/embed.php?svc=t&res=65271275128197802" id="jinkela" scrolling="no" style="width:30em; max-width:100%;" frameBorder="0"></iframe>
+<script type="application/javascript" src="//localhost/iframeResizer.min.js"></script>
+<script>iFrameResize([{log:false},{inPageLinks:true}], jinkela || iframe)</script>
+```
 
-To embed cards to foreign pages, simply copy and paste the URL of your resource (starting with `http` or `https` of course) in the big input box on `index.html` and the embed code will appear below automatically.
+- The iframe src should be your request. See below for available request formats.
+- Replace `localhost` with domain or hostname of your own instance.
 
 ## Request Formats
 
-- Videos: `https://www.bilibili.com/video/av8086541`
-- Animes: `https://www.bilibili.com/bangumi/play/ep115184`
-- Users: `https://space.bilibili.com/282994`
-- Tweet: `https://t.bilibili.com/65280612388150762`
+- Videos: `https://example.com/embed.php?svc=video&res=15519586`
+- Users: `https://example.com/embed.php?svc=user&res=282994`
+- Tweet: `https://example.com/embed.php?svc=t&res=65280612388150762`
 
 ## Known Bugs
+
+- Some types of Bilibili tweets are not yet supported, including retweeted tweets, tweets including short videos.
 
 ## Todo list
 
 - Fix Bugs
-- If you want something else more interesting on the card please let me know by posting on the issues page.
+- Add some more info to cards, like authorized account, gender and grade information, etc. to fully populate the cards.

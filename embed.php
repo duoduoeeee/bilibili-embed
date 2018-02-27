@@ -72,9 +72,6 @@ else if($service === 'bg') {
   echo '
   <div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
     <img class="card-img-top" src="' .$out_media. '">
-    <div class="card-img-overlay">
-      <span style="background-color:#fb7299; color:#fff;" class="badge badge-primary">番剧</span>
-    </div>
     <div class="card-body">
       <strong class="card-title">' .$out_name. '</strong>
       <div style="color:gray">

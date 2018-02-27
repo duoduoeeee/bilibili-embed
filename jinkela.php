@@ -27,12 +27,11 @@ function parseVideoArchive($resid) {
 }
 
 function parseBangumiStat($resid) {
-  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" .$resid. "&cross_domain=true";
+  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" .$ObjectBangumiRawDocument -> data -> season_id. "&cross_domain=true";
   $bangumiRawDocument = file_get_contents($requestURL);
   $ObjectBangumiRawDocument = json_decode($bangumiRawDocument);
 
-  $resBangumiId = $ObjectBangumiRawDocument -> data -> season_id;
-  $resHTMLObject = "https://bangumi.bilibili.com/" .$resBangumiId;
+  $resHTMLObject = "https://bangumi.bilibili.com/" .$resid;
   $resCoverObject = $ObjectBangumiRawDocument -> data -> cover;
 
   /***process REGEX***/
@@ -42,8 +41,8 @@ function parseBangumiStat($resid) {
     $replacements_bg[0] = "https:";
   ksort($patterns_bg);
   ksort($replacements_bg);
-  $resCoverObjectSecure = preg_replace($patterns_bg, $replacements_bg, $resCoverObject);
 
+  $resCoverObjectSecure = preg_replace($patterns_bg, $replacements_bg, $resCoverObject);
   $resBangumiTitle = $ObjectBangumiRawDocument -> data -> title;
   $resBangumiRateCount = $ObjectBangumiRawDocument -> data -> rating -> count;
   $resBangumiRateScore = $ObjectBangumiRawDocument -> data -> rating -> score;
@@ -51,7 +50,7 @@ function parseBangumiStat($resid) {
   $resbangumiPlayCount = $ObjectBangumiRawDocument -> data -> play_count;
 
   return array(
-    $resHTMLObject,
+    $requestURL,
     $resCoverObjectSecure,
     $resBangumiTitle,
     $resBangumiRateCount,
