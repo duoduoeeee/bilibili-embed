@@ -55,6 +55,6 @@ By far you may embed the following resources from Bilibili:
 
 ## Todo list
 
-- [] Fix Bugs
+- [ ] Fix Bugs
 - [x] Add some more info to cards, like authorized account, gender and grade information, etc. to fully populate the cards.
-- [] Add preview below the input bar just like twitter does
+- [ ] Add preview below the input bar just like twitter does
