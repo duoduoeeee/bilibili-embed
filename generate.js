@@ -1,3 +1,14 @@
+function makeid() {
+  var text = "";
+  var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 9; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+
 function processInput(inputtext){
 
 //some lovable regex
@@ -55,9 +66,11 @@ if (svc.replace(/(^\s*)|(\s*$)/g, "") === "bg" && !uid) {
 }
 
 else if (svc.replace(/(^\s*)|(\s*$)/g, "").length !=0 && uid[0].length !=0) {
-var preOutput = "<iframe src=\"https://badges.duoee.cn/embed.php?svc=" + svc + "&res=" + uid[0] +"\" id=\"jinkela\" scrolling=\"no\" style=\"width:30em; max-width:100%;\" frameBorder=\"0\"></iframe>" + '\n' +
+var idn = makeid();
+var idcf = idn;
+var preOutput = "<iframe src=\"https://badges.duoee.cn/embed.php?svc=" + svc + "&res=" + uid[0] +" id=" + idcf + " scrolling=\"no\" style=\"width:30em; max-width:100%;\" frameBorder=\"0\"></iframe>" + '\n' +
 "<script type=\"application/javascript\" src=\"https://badges.duoee.cn/iframeResizer.min.js\"></script>" +'\n' +
-"<script>iFrameResize([{log:false},{inPageLinks:true}], jinkela || iframe)</script>"
+"<script>iFrameResize([{log:false},{inPageLinks:true}], " + idcf + " || iframe)</script>"
 }
 
 

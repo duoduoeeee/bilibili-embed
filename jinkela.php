@@ -27,7 +27,7 @@ function parseVideoArchive($resid) {
 }
 
 function parseBangumiStat($resid) {
-  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" .$ObjectBangumiRawDocument -> data -> season_id. "&cross_domain=true";
+  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" . $resid . "&cross_domain=true";
   $bangumiRawDocument = file_get_contents($requestURL);
   $ObjectBangumiRawDocument = json_decode($bangumiRawDocument);
 
@@ -184,7 +184,7 @@ function parseBilibiliTweet($resid) {
 }
 
 function parseBilibiliUser($resid) {
-  $requestURL = 'https://api.bilibili.com/cardrich?mid=' .$resid;
+  $requestURL = 'https://api.bilibili.com/x/web-interface/card?&jsonp=jsonp&photo=1&mid=' .$resid;
   $biliRawDocument = file_get_contents($requestURL);
   $ObjectBiliRawDocument = json_decode($biliRawDocument);
 
