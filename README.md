@@ -65,3 +65,5 @@ By far you may embed the following resources from Bilibili:
 - [ ] Fix Bugs
 - [x] Add some more info to cards, like authorized account, gender and grade information, etc. to fully populate the cards.
 - [ ] Add preview below the input bar just like twitter does
+- [ ] Add more info to bangumi cards
+- [ ] Let words on cards support truncating and line-breaking
