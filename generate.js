@@ -1,6 +1,6 @@
 function makeid() {
   var text = "";
-  var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+  var possible = "abcdefghijklmnopqrstuvwxyz";
 
   for (var i = 0; i < 9; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
