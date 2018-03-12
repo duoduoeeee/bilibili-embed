@@ -30,8 +30,8 @@ function parseBangumiStat($resid) {
   $requestURL = "https://api.bilibili.com/x/article/card?id=ep" . $resid . "&cross_domain=true";
   $bangumiRawDocument = file_get_contents($requestURL);
   $ObjectBangumiRawDocument = json_decode($bangumiRawDocument);
-
-  $resHTMLObject = "https://bangumi.bilibili.com/" .$resid;
+  $seasonId = $ObjectBangumiRawDocument -> data -> season_id;
+  $resHTMLObject = "https://bangumi.bilibili.com/" .$seasonId;
   $resCoverObject = $ObjectBangumiRawDocument -> data -> cover;
 
   /***process REGEX***/
