@@ -11,18 +11,25 @@ This project implements the following open source software:
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
 
-## 1.1g "hanser"
+## 1.1ga "mh"
 
 changes:
 
-- Fixing a bug causing embeds not automatically adjusting their heights when there are multiple embeds on a same webpage
-- following up api changes of bilibili that causes user avatars and headers image not loading
+- Fixed a bug causing iframes occasionally refuse to update heights of themselves
+- Fixed a bug causing users being redirected to the api json file instead of the details page when embedding a bangumi
 
 It is suggested that all users download this version.
 
 Known bugs:
 
 - bilibili tweets are not recognised correctly. Looking into the issue.
+
+## 1.1g "hanser"
+
+changes:
+
+- Fixing a bug causing embeds not automatically adjusting their heights when there are multiple embeds on a same webpage
+- following up api changes of bilibili that causes user avatars and headers image not loading
 
 ## How to use
 
