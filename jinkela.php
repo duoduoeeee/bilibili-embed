@@ -50,7 +50,7 @@ function parseBangumiStat($resid) {
   $resbangumiPlayCount = $ObjectBangumiRawDocument -> data -> play_count;
 
   return array(
-    $requestURL,
+    $resHTMLObject,
     $resCoverObjectSecure,
     $resBangumiTitle,
     $resBangumiRateCount,
