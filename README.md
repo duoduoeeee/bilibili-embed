@@ -23,6 +23,7 @@ It is suggested that all users download this version.
 Known bugs:
 
 - bilibili tweets are not recognised correctly. Looking into the issue.
+- **It is confirmed that my embed tool is incompatible with a Typecho plugin [EditorMD](https://github.com/DT27/EditorMD/). Do not enable that plugin if you use Typecho as your blog system.**
 
 ## 1.1g "hanser"
 
