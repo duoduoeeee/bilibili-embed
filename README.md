@@ -11,6 +11,13 @@ This project implements the following open source software:
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
 
+## 1.1gb "marblue"
+
+- tweets are now somehow working all properly. i didn't change anything = =
+- adding short video identification badge to tweet cards.
+
+now all bilibili tweets **except retweets** are recognised properly by the card plugin.
+
 ## 1.1ga "mh"
 
 changes:
