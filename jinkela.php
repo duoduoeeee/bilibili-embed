@@ -160,7 +160,7 @@ function parseBilibiliTweet($resid) {
     $resTweetBodyAsset = $ObjectResTweet -> item -> cover -> default;
     $resTweetBodyAssetTitle = '';
     $resTweetBodyAssetDesc = '';
-    $overlayBadgeContent = '';
+    $overlayBadgeContent = '短视频';
   }
   else {
     $resTweetBodyObject = '获取动态详情失败。';
