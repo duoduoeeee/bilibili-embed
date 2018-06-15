@@ -59,9 +59,9 @@ By far you may embed the following resources from Bilibili:
 
 ## Todo list
 
-[] Fix Bugs
+[ ] Fix Bugs
 [x] Add some more info to cards, like authorized account, gender and grade information, etc. to fully populate the cards.
-[] Add support for retweets
-[] Add support for column articles
-[] Add support for music
-[] Add blurry background effect to cards
+[ ] Add support for retweets
+[ ] Add support for column articles
+[ ] Add support for music
+[ ] Add blurry background effect to cards
