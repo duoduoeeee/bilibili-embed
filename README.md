@@ -11,6 +11,16 @@ This project implements the following open source software:
 - [iframeResizer](https://davidjbradshaw.github.io/iframe-resizer/).
 - [Bootstrap](https://getbootstrap.com).
 
+## 1.1gc "Shimo"
+
+changes:
+
+- fixed some bugs relating to bangumi card presentation. yeah bilibili has changed its api again.
+
+come on and stop changing your %%%%%% apis!!
+
+it is recommended that all users update to this version.
+
 ## 0.9a Public Beta
 
 changes:
