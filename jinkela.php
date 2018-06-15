@@ -27,12 +27,20 @@ function parseVideoArchive($resid) {
 }
 
 function parseBangumiStat($resid) {
-  $requestURL = "https://api.bilibili.com/x/article/card?id=ep" . $resid . "&cross_domain=true";
-  $bangumiRawDocument = file_get_contents($requestURL);
+  //requestURL1 获取番剧基本信息，包括seasonid，2获取统计数据
+  //说好的番剧评分和累计播放数都没有了
+  //这迭代太恐怖了。。。。破站吃枣药丸
+  //你少改几回api能死吗！！！
+  $requestURLa = "https://bangumi.bilibili.com/web_api/episode/" .$resid. ".json";
+  $bangumiRawDocument = file_get_contents($requestURLa);
   $ObjectBangumiRawDocument = json_decode($bangumiRawDocument);
-  $seasonId = $ObjectBangumiRawDocument -> data -> season_id;
-  $resHTMLObject = "https://bangumi.bilibili.com/" .$seasonId;
-  $resCoverObject = $ObjectBangumiRawDocument -> data -> cover;
+  $seasonId = $ObjectBangumiRawDocument -> result -> currentEpisode -> seasonId;
+  $resHTMLObject = "https://bangumi.bilibili.com/anime/" .$seasonId;
+  $requestURLb = "https://bangumi.bilibili.com/ext/web_api/season_count?season_id=" .$seasonId ."&season_type=1";
+  $bangumiRawDocumentb = file_get_contents($requestURLb);
+  $ObjectBangumiRawDocumentb = json_decode($bangumiRawDocumentb);
+  //番剧图片
+  $resCoverObject = $ObjectBangumiRawDocument -> result -> season -> cover;
 
   /***process REGEX***/
   $patterns_bg = array();
@@ -43,11 +51,15 @@ function parseBangumiStat($resid) {
   ksort($replacements_bg);
 
   $resCoverObjectSecure = preg_replace($patterns_bg, $replacements_bg, $resCoverObject);
-  $resBangumiTitle = $ObjectBangumiRawDocument -> data -> title;
-  $resBangumiRateCount = $ObjectBangumiRawDocument -> data -> rating -> count;
-  $resBangumiRateScore = $ObjectBangumiRawDocument -> data -> rating -> score;
-  $resBangumiFollowCount = $ObjectBangumiRawDocument -> data -> follow_count;
-  $resbangumiPlayCount = $ObjectBangumiRawDocument -> data -> play_count;
+  //番剧标题
+  $resBangumiTitle = $ObjectBangumiRawDocument -> result -> season -> title;
+  //番剧统计数据
+  $resBangumiRateCount = $ObjectBangumiRawDocumentb -> data -> rating -> count;
+  $resBangumiRateScore = $ObjectBangumiRawDocumentb -> data -> rating -> score;
+  $resBangumiFollowCount = $ObjectBangumiRawDocumentb -> result -> favorites;
+  $resBangumiPlayCount = $ObjectBangumiRawDocumentb -> result -> views;
+  $resBangumiCoinsCount = $ObjectBangumiRawDocumentb -> result -> coins;
+  $resBangumiDanmakusCount = $ObjectBangumiRawDocumentb -> result -> danmakus;
 
   return array(
     $resHTMLObject,
@@ -56,7 +68,9 @@ function parseBangumiStat($resid) {
     $resBangumiRateCount,
     $resBangumiRateScore,
     $resBangumiFollowCount,
-    $resbangumiPlayCount);
+    $resBangumiPlayCount,
+    $resBangumiCoinsCount,
+    $resBangumiDanmakusCount);
 }
 
 /***

@@ -68,6 +68,8 @@ else if($service === 'bg') {
   $out_rate = $vars[4];
   $out_follow = $vars[5];
   $out_play = $vars[6];
+  $out_coin = $vars[7];
+  $out_danmaku = $vars[8];
 
   echo '
   <div class="card" style="width:100%; height:auto;" onclick="window.open(\'' .$out_href. '\');">
@@ -75,8 +77,8 @@ else if($service === 'bg') {
     <div class="card-body">
       <strong class="card-title">' .$out_name. '</strong>
       <div style="color:gray">
-        <span><img src="user.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_ratecount. '</span>
-        <span><img src="star.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_rate. '</span>
+        <span><img src="danmaku.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_danmaku. '</span>
+        <span><img src="coin.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_coin. '</span>
         <span><img src="heart.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_follow. '</span>
         <span><img src="play.svg" style="width:20px; height:auto; margin-right:0.5em;"></span><span style="margin-right:0.5rem;">' .$out_play. '</span>
         <span class="float-right"><img src="bilibili.svg" style="width:20px; height:auto;"></span>
